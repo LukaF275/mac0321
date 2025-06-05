@@ -1,8 +1,13 @@
 public class ConversorFarenheitParaCelsius implements Conversor {
+    @Override
+    public double converter(double temperatura) {
+        return (temperatura - 32) * 5 / 9;
+    }
 
     @Override
-    public double converte(double temperatura) {
-        return 5*(temperatura-32)/9;    
+    public Conversor clone() {
+        return new ConversorFarenheitParaCelsius();
     }
-    
 }
+
+

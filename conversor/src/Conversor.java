@@ -1,8 +1,7 @@
 /**
  * Interface de conversores de temperatura
- */
-public interface Conversor {
-
-    public double converte(double temperatura);
-    
-} 
+*/
+public interface Conversor extends Cloneable {
+    double converter(double temperatura);
+    Conversor clone();
+}

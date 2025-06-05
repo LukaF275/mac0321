@@ -1,26 +1,21 @@
-import java.util.Scanner; 
-
 public class AppConversor {
     public static void main(String[] args) {
-        Conversor conv; // Criaremos um conversor dependento das entradas e saídas.
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Digite a unidade da temperatura a ser convertida [F ou C]: ");
-        char unidadeEntrada = sc.next().charAt(0);   
-        System.out.print("Digite para qual unidade da temperatura convertê-la [F ou C]: ");
-        char unidadeSaída = sc.next().charAt(0);   
-        System.out.print("Digite a temperatura de entrada (em " + unidadeEntrada + "): ");
-        double tempEntrada = sc.nextDouble();
-        sc.close();
-        if (unidadeEntrada == unidadeSaída) {
-            conv = new ConversorIdentidade();
-        } else if (unidadeEntrada == 'C' && unidadeSaída == 'F') {
-            conv = new ConversorCelsiusParaFarenheit();
-        } else if (unidadeEntrada == 'F' && unidadeSaída == 'C') {
-            conv = new ConversorFarenheitParaCelsius();
-        } else {
-            throw new UnsupportedOperationException("Unimplemented method 'converte'");
-        }
-        double tempSaída = conv.converte(tempEntrada);
-        System.out.printf("%.2f%c -> %.2f%c\n", tempEntrada, unidadeEntrada, tempSaída, unidadeSaída);
+        ConversorFactory fabrica = ConversorFactory.getInstance();
+
+        Conversor conv1 = fabrica.criarConversor(TipoConversor.CELSIUS_PARA_FAHRENHEIT);
+        Conversor conv2 = fabrica.criarConversor(TipoConversor.FAHRENHEIT_PARA_CELSIUS);
+        Conversor conv3 = fabrica.criarConversor(TipoConversor.CELSIUS_PARA_KELVIN);
+        Conversor conv4 = fabrica.criarConversor(TipoConversor.KELVIN_PARA_CELSIUS);
+        Conversor conv5 = fabrica.criarConversor(TipoConversor.FAHRENHEIT_PARA_KELVIN);
+        Conversor conv6 = fabrica.criarConversor(TipoConversor.KELVIN_PARA_FAHRENHEIT);
+        Conversor conv7 = fabrica.criarConversor(TipoConversor.IDENTIDADE);
+
+        System.out.println("25 ºC -> " + conv1.converter(25) + " ºF");
+        System.out.println("77 ºF -> " + conv2.converter(77) + " ºC");
+        System.out.println("0 ºC -> " + conv3.converter(0) + " K");
+        System.out.println("273.15 K -> " + conv4.converter(273.15) + " ºC");
+        System.out.println("32 ºF -> " + conv5.converter(32) + " K");
+        System.out.println("273.15 K -> " + conv6.converter(273.15) + " ºF");
+        System.out.println("100 ºC -> " + conv7.converter(100) + " ºC");
     }
 }
